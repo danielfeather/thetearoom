@@ -1,0 +1,16 @@
+{
+  "tasks": {
+    "dev": "deno run -A npm:vite & deno run server:start",
+    "build": "deno run -A npm:vite build",
+    "server:start": "deno run -A --watch main.ts",
+    "serve": "deno run build && deno run server:start"
+  },
+  "nodeModulesDir": "auto",
+  "imports": {
+    "@deno/vite-plugin": "npm:@deno/vite-plugin@^1.0.5",
+    "@types/nunjucks": "npm:@types/nunjucks@^3.2",
+    "nunjucks": "npm:nunjucks@^3.2.4",
+    "sass-embedded": "npm:sass-embedded@^1.93.3",
+    "vite": "npm:vite@^7.2.2"
+  }
+}

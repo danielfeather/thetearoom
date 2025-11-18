@@ -1,0 +1,30 @@
+// .theme-a {
+//   background: #ddccaa;
+//   color: #773311;
+// }
+
+// @media (prefers-color-scheme: dark) {
+//   .theme-a.adaptive {
+//     background: #775533;
+//     color: #ddccbb;
+//     outline: 5px dashed black;
+//   }
+// }
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  background-color: slateblue;
+}
+
+header {
+  font-size: 2rem;
+  text-align: center;
+  padding: 1rem;
+  font-weight: bold;
+  background-color: white;
+}
+
+main {
+  padding: 0 1rem;
+}
