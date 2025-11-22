@@ -23,10 +23,6 @@ jobs:
                 kubectl config set-credentials default --client-certificate=./client.crt --client-key=./client.key
                 kubectl config set-context default --namespace=default --user=default --cluster=default
                 kubectl config use-context default
-            
-            - name: Show certificate information
-              run: |
-                openssl x509 -in ca_cert.crt -inform DER -text -noout
 
             - name: list config
               run: kubectl config view
