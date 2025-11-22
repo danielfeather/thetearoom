@@ -25,7 +25,7 @@ jobs:
             
             - name: Show certificate information
               run: |
-                openssl x509 -in ca_cert.cert -inform DER -text -noout
+                openssl x509 -in ca_cert.crt -inform DER -text -noout
 
             - name: list config
               run: kubectl config view
