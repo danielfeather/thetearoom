@@ -4,4 +4,4 @@ EXPOSE 3000 5173
 
 WORKDIR /app
 
-CMD ["run", "dev", "--allow-net"]
+CMD ["run", "dev"]

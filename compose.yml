@@ -25,6 +25,8 @@ services:
     build:
       context: .
       dockerfile: docker/development/Dockerfile
+    ports:
+      - 5173:5173
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.thetearoom.tls=true'

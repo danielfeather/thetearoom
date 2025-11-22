@@ -1,1 +1,6 @@
-{% extends "base.html" %} {% block body %} Testing123 {% endblock %}
+{% extends "base.html" %} 
+{% block body %} 
+{% for item in items %}
+{% include "components/item.html" %}
+{% endfor %}
+{% endblock %}
