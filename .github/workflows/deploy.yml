@@ -12,9 +12,9 @@ jobs:
                 CLIENT_CERT: ${{ secrets.K8S_CLIENT_CERTIFICATE_DATA }}
                 CLIENT_KEY: ${{ secrets.K8S_CLIENT_CERTIFICATE_KEY }}
               run: |
-                echo $CA_CERT > ca_cert.crt
-                echo $CLIENT_CERT > client.crt
-                echo $CLIENT_KEY > client.key
+                echo $CA_CERT | base64 --decode> ca_cert.crt
+                echo $CLIENT_CERT | base64 --decode > client.crt
+                echo $CLIENT_KEY | base64 --decode > client.key
 
             - name: Setup config
               run: |
