@@ -22,6 +22,9 @@ jobs:
                 kubectl config set-credentials default --client-certificate=./client.crt --client-key=./client.key
                 kubectl config set-context default --namespace=default --user=default
                 kubectl config use-context default
+            
+            - name: list config
+              run: kubectl config view
 
             - name: Get pods
               run: kubectl get pods --all-namespaces
