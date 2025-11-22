@@ -1,0 +1,24 @@
+name: Deploy
+on: workflow_dispatch
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: azure/setup-kubectl@v4
+
+            - name: Save credentials
+              env:
+                CA_CERT: ${{ secrets.K8S_CERTIFICATE_AUTHORITY }}
+                CLIENT_CERT: ${{ secrets.K8S_CLIENT_CERTIFICATE_DATA }}
+                CLIENT_KEY: ${{ secrets.K8S_CLIENT_CERTIFICATE_KEY }}
+              run: |
+                echo $CA_CERT > ca_cert.crt
+                echo $CLIENT_CERT > client.crt
+                echo $CLIENT_KEY > client.key
+
+            - name: Setup config
+              run: |
+                kubectl config set-cluster default --server=${{ secrets.K8S_SERVER_URL }} --certificate-authority=./ca_cert.crt
+                kubectl config set-credentials default --client-certificate=./client.crt --client-key=./client.key
+                kubectl config set-context default --current --namespace=default --user=default
+              
