@@ -18,6 +18,7 @@ jobs:
 
             - name: Setup config
               run: |
+                ls
                 kubectl config set-cluster default --server=${{ secrets.K8S_SERVER_URL }} --certificate-authority=./ca_cert.crt
                 kubectl config set-credentials default --client-certificate=./client.crt --client-key=./client.key
                 kubectl config set-context default --namespace=default --user=default --cluster=default
