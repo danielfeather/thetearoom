@@ -9,7 +9,7 @@ jobs:
     build:
       permissions:
         packages: write
-      runs-on: ubuntu-latest
+      runs-on: ubuntu-24.04-arm
       steps:
 
         - name: Docker meta
@@ -61,9 +61,6 @@ jobs:
             kubectl config set-context default --namespace=default --user=default --cluster=default
             kubectl config use-context default
 
-        - name: list config
-          run: kubectl config view
-
-        - name: Get pods
-          run: kubectl get pods --all-namespaces
+        - name: Restart Deployment
+          run: kubectl rollout restart deployment/thetearoom -n thetearoom
             
