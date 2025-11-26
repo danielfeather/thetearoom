@@ -1,32 +1,67 @@
-name: Deploy
-on: workflow_dispatch
+name: Build and Deploy
+
+on: 
+  push:
+    branches:
+      - "**"
+  
 jobs:
+    build:
+      runs-on: ubuntu-latest
+      steps:
+
+        - name: Docker meta
+          id: meta
+          uses: docker/metadata-action@v5
+          with:
+            # list of Docker images to use as base name for tags
+            images: |
+              ghcr.io/danielfeather/thetearoom
+            tags: |
+              type=ref,event=branch
+              type=sha
+
+        - name: Login to GitHub Container Registry
+          uses: docker/login-action@v3
+          with:
+            registry: ghcr.io
+            username: ${{ github.actor }}
+            password: ${{ secrets.GITHUB_TOKEN }}
+        
+        - name: Build and push
+          uses: docker/build-push-action@v6
+          with:
+            push: true
+            file: docker/production/Dockerfile
+            tags: ${{ steps.meta.outputs.tags }}
+            labels: ${{ steps.meta.outputs.labels }}
     deploy:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: azure/setup-kubectl@v4
+      runs-on: ubuntu-latest
+      needs: build 
+      steps:
+        - uses: azure/setup-kubectl@v4
 
-            - name: Save credentials
-              env:
-                CA_CERT: ${{ secrets.K8S_CERTIFICATE_AUTHORITY }}
-                CLIENT_CERT: ${{ secrets.K8S_CLIENT_CERTIFICATE_DATA }}
-                CLIENT_KEY: ${{ secrets.K8S_CLIENT_CERTIFICATE_KEY }}
-              run: |
-                echo $CA_CERT | base64 --decode > ca_cert.crt
-                echo $CLIENT_CERT | base64 --decode > client.crt
-                echo $CLIENT_KEY | base64 --decode > client.key
+        - name: Save credentials
+          env:
+            CA_CERT: ${{ secrets.K8S_CERTIFICATE_AUTHORITY }}
+            CLIENT_CERT: ${{ secrets.K8S_CLIENT_CERTIFICATE_DATA }}
+            CLIENT_KEY: ${{ secrets.K8S_CLIENT_CERTIFICATE_KEY }}
+          run: |
+            echo $CA_CERT | base64 --decode > ca_cert.crt
+            echo $CLIENT_CERT | base64 --decode > client.crt
+            echo $CLIENT_KEY | base64 --decode > client.key
 
-            - name: Setup config
-              run: |
-                ls
-                kubectl config set-cluster default --server=${{ secrets.K8S_SERVER_URL }} --certificate-authority=./ca_cert.crt
-                kubectl config set-credentials default --client-certificate=./client.crt --client-key=./client.key
-                kubectl config set-context default --namespace=default --user=default --cluster=default
-                kubectl config use-context default
+        - name: Setup config
+          run: |
+            ls
+            kubectl config set-cluster default --server=${{ secrets.K8S_SERVER_URL }} --certificate-authority=./ca_cert.crt
+            kubectl config set-credentials default --client-certificate=./client.crt --client-key=./client.key
+            kubectl config set-context default --namespace=default --user=default --cluster=default
+            kubectl config use-context default
 
-            - name: list config
-              run: kubectl config view
+        - name: list config
+          run: kubectl config view
 
-            - name: Get pods
-              run: kubectl get pods --all-namespaces
-              
+        - name: Get pods
+          run: kubectl get pods --all-namespaces
+            
