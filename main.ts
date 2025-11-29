@@ -101,4 +101,4 @@ app.get("/", (ctx) => {
   );
 });
 
-Deno.serve(app.fetch);
+Deno.serve({ port: 3000 }, app.fetch);
