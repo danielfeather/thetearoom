@@ -7,7 +7,7 @@
   },
   "nodeModulesDir": "auto",
   "imports": {
-    "@deno/vite-plugin": "npm:@deno/vite-plugin@^1.0.5",
+    "hono": "jsr:@hono/hono",
     "@types/nunjucks": "npm:@types/nunjucks@^3.2",
     "nunjucks": "npm:nunjucks@^3.2.4",
     "sass-embedded": "npm:sass-embedded@^1.93.3",

@@ -1,4 +1,8 @@
 import nunjucks from "nunjucks";
+import { Manifest } from "vite";
+
+import { Hono } from "hono";
+import { serveStatic } from "hono/deno";
 
 nunjucks.configure("views", {
   autoescape: true,
@@ -22,6 +26,8 @@ interface Item {
   quantity: QuantityStatement;
 }
 
+const app = new Hono();
+
 const items: Item[] = [
   {
     id: "daniels-school-cake",
@@ -43,15 +49,56 @@ const items: Item[] = [
   },
 ];
 
-Deno.serve(
-  { port: 3000 },
-  () =>
-    new Response(
-      nunjucks.render("home.html", { title: "The Tea Room", items }),
-      {
-        headers: {
-          "content-type": "text/html; charset=utf-8",
-        },
-      }
-    )
+const manifest: Manifest | undefined = await Deno.readTextFile(
+  "dist/.vite/manifest.json"
+)
+  .then(JSON.parse)
+  .catch(() => undefined);
+
+let scripts = [];
+let styles = [];
+
+if (!manifest) {
+  scripts.push(
+    "http://localhost:5173/@vite/client",
+    "http://localhost:5173/client/main.js"
+  );
+}
+
+if (manifest) {
+  for (const [entry, chunk] of Object.entries(manifest)) {
+    scripts.push(chunk.file);
+
+    if (chunk.css) {
+      styles.push(...chunk.css);
+    }
+  }
+}
+
+app.use(
+  "/assets/*",
+  serveStatic({
+    root: "./dist",
+    onNotFound: (path, c) => {
+      console.log(`${path} is not found, you access ${c.req.path}`);
+    },
+  })
 );
+
+app.get("/", (ctx) => {
+  return ctx.html(
+    nunjucks.render("home.html", {
+      title: "The Tea Room",
+      items,
+      scripts,
+      styles,
+    }),
+    {
+      headers: {
+        "content-type": "text/html; charset=utf-8",
+      },
+    }
+  );
+});
+
+Deno.serve(app.fetch);
