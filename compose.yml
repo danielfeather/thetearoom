@@ -1,6 +1,6 @@
 services:
   traefik:
-      image: traefik:v3.2
+      image: traefik:v3.6
       command:
         - '--log.level=DEBUG'
         - '--api.insecure=true'
@@ -34,3 +34,5 @@ services:
       - 'traefik.http.services.thetearoom.loadbalancer.server.port=3000'
     volumes:
       - ./:/app
+    env_file:
+      - .env

@@ -1,6 +1,6 @@
-node_modules
-.vite
-*.pem
-dist
 .env
+node_modules
+docker
+.vite
+.github
 vendor

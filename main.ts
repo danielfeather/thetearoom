@@ -101,4 +101,14 @@ app.get("/", (ctx) => {
   );
 });
 
-Deno.serve({ port: 3000 }, app.fetch);
+function port() {
+  const portEnv = Number(Deno.env.get("PORT"));
+
+  if (!portEnv) {
+    return 3000;
+  }
+
+  return Number(portEnv);
+}
+
+Deno.serve({ port: port() }, app.fetch);

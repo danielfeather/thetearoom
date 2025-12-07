@@ -4,7 +4,7 @@ export default defineConfig({
   server: {
     cors: {
       // the origin you will be accessing via browser
-      origin: true,
+      origin: `${Deno.env.get("PROTO")}://${Deno.env.get("HOST")}`,
     },
   },
   build: {

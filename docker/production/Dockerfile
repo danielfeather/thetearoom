@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY deno.json .
 
-RUN deno install
+RUN deno install --vendor
 
 COPY . .
 
@@ -12,4 +12,4 @@ RUN deno run build
 
 EXPOSE 3000
 
-CMD ["run", "--allow-net", "--allow-read", "main.ts"]
+CMD ["run", "--vendor", "--allow-net", "--allow-read", "main.ts"]
