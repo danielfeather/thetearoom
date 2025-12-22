@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "dev": "deno run -A npm:vite --host 0.0.0.0 & deno run server:start",
+    "dev": "OTEL_SERVICE_NAME=vite deno run -A npm:vite --host 0.0.0.0 & deno run server:start",
     "build": "deno run -A npm:vite build",
     "server:start": "deno run --cached-only -A --watch main.ts",
     "serve": "deno run build && deno run --cached-only server:start"

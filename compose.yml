@@ -36,3 +36,20 @@ services:
       - ./:/app
     env_file:
       - .env
+
+  otel:
+    image: docker.io/grafana/otel-lgtm:0.13.0
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.otel.tls=true'
+      - 'traefik.http.routers.otel.rule=Host(`otel.localhost`)'
+      - 'traefik.http.services.otel.loadbalancer.server.port=3000'
+    volumes:
+      - grafana:/data/grafana
+      - prometheus:/data/prometheus
+      - loki:/data/loki
+
+volumes:
+  grafana:
+  prometheus:
+  loki:
