@@ -12,4 +12,4 @@ RUN deno run build
 
 EXPOSE 3000
 
-CMD ["run", "--vendor", "--allow-net", "--allow-read", "main.ts"]
+CMD ["run", "--vendor", "--allow-net", "--allow-read", "--allow-env", "main.ts"]
