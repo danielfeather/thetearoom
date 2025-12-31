@@ -47,6 +47,10 @@ const items: Item[] = [
   },
 ];
 
+/**
+ * Should probably have some more rebust checking before blindly inserting
+ * scripts that load from localhost.
+ */
 const manifest: Manifest | undefined = await Deno.readTextFile(
   "public/.vite/manifest.json"
 )
@@ -89,7 +93,7 @@ app.get("/", (ctx) => {
   );
 });
 
-app.use("/assets/.vite/*", (ctx) => {
+app.use("/.vite/*", (ctx) => {
   return Promise.resolve(ctx.notFound());
 });
 

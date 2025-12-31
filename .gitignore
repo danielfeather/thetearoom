@@ -5,3 +5,4 @@ dist
 .env
 vendor
 .DS_STORE
+public/assets

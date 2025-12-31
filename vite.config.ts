@@ -9,10 +9,10 @@ export default defineConfig({
     },
   },
   build: {
-    // generate .vite/manifest.json in outDir
     manifest: true,
-    emptyOutDir: true,
+    emptyOutDir: false,
     outDir: "public",
+    assetsDir: "./assets",
     rollupOptions: {
       // overwrite default .html entry
       input: "client/main.ts",
