@@ -13,6 +13,7 @@
 
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: black;
   margin: 0;
 }
 
@@ -30,7 +31,8 @@ a:visited {
 }
 
 header {
-  background-color: #37353e;
+  background-color: #000;
+  color: white;
   font-size: 2rem;
   text-align: center;
   padding: 1rem;

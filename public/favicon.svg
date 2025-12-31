@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="1000" height="1000"><style>
+    #light-icon {
+      display: inline;
+    }
+    #dark-icon {
+      display: none;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      #light-icon {
+        display: none;
+      }
+      #dark-icon {
+        display: inline;
+      }
+    }
+  </style><g id="light-icon"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="1000" height="1000"><g clip-path="url(#SvgjsClipPath1025)"><rect width="1000" height="1000" fill="#000000"></rect><g transform="matrix(0.7,0,0,0.7,150,150)"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="1000" height="1000"><svg width="1000" height="1000" viewBox="0 0 1000 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M375 250H312.5V343.75H375V250Z" fill="white"></path>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M312.5 406.25H656.25C708.028 406.25 750 448.223 750 500V562.5C750 614.278 708.028 656.25 656.25 656.25H619.666C606.797 692.662 572.069 718.75 531.25 718.75H406.25C354.473 718.75 312.5 676.778 312.5 625V406.25ZM625 593.75V468.75H656.25C673.509 468.75 687.5 482.741 687.5 500V562.5C687.5 579.759 673.509 593.75 656.25 593.75H625Z" fill="white"></path>
+<path d="M562.5 250H625V343.75H562.5V250Z" fill="white"></path>
+<path d="M500 250H437.5V343.75H500V250Z" fill="white"></path>
+</svg></svg></g></g><defs><clipPath id="SvgjsClipPath1025"><rect width="1000" height="1000" x="0" y="0" rx="350" ry="350"></rect></clipPath></defs></svg></g><g id="dark-icon"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="1000" height="1000"><g><g transform="matrix(1,0,0,1,0,0)"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="1000" height="1000"><svg width="1000" height="1000" viewBox="0 0 1000 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M375 250H312.5V343.75H375V250Z" fill="white"></path>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M312.5 406.25H656.25C708.028 406.25 750 448.223 750 500V562.5C750 614.278 708.028 656.25 656.25 656.25H619.666C606.797 692.662 572.069 718.75 531.25 718.75H406.25C354.473 718.75 312.5 676.778 312.5 625V406.25ZM625 593.75V468.75H656.25C673.509 468.75 687.5 482.741 687.5 500V562.5C687.5 579.759 673.509 593.75 656.25 593.75H625Z" fill="white"></path>
+<path d="M562.5 250H625V343.75H562.5V250Z" fill="white"></path>
+<path d="M500 250H437.5V343.75H500V250Z" fill="white"></path>
+</svg></svg></g></g></svg></g></svg>

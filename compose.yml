@@ -1,14 +1,6 @@
 services:
   traefik:
       image: traefik:v3.6
-      command:
-        - '--log.level=DEBUG'
-        - '--api.insecure=true'
-        - '--providers.file.directory=/etc/traefik/dynamic'
-        - '--providers.docker=true'
-        - '--providers.docker.exposedbydefault=false'
-        - '--entrypoints.web.address=:80'
-        - '--entrypoints.websecure.address=:443'
       labels:
         - 'traefik.http.middlewares.redirect-https.redirectscheme.scheme=https'
         - 'traefik.http.middlewares.redirect-https.redirectscheme.permanent=true'
@@ -18,9 +10,10 @@ services:
         - 8080:8080
       volumes:
         - '/var/run/docker.sock:/var/run/docker.sock:ro'
-        - './traefik.yml:/etc/traefik/dynamic/traefik.yml'
-        - './cert.pem:/etc/certs/vaudit.pem'
-        - './key.pem:/etc/certs/vaudit.key.pem'
+        - './docker/development/traefik.yml:/etc/traefik/dynamic/traefik.yml'
+        - './docker/development/traefik-config.yml:/etc/traefik/traefik.yml'
+        - './docker/development/cert.pem:/etc/certs/thetearoom.pem'
+        - './docker/development/key.pem:/etc/certs/thetearoom.key.pem'
   thetearoom:
     build:
       context: .

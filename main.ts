@@ -22,7 +22,7 @@ interface Item {
   id: string;
   name: string;
   description: string;
-  imageUrl: string;
+  imageUrl?: string | null;
   quantity: QuantityStatement;
 }
 
@@ -34,8 +34,7 @@ const items: Item[] = [
     name: "Daniel's School Cake",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    imageUrl:
-      "https://www.janespatisserie.com/wp-content/uploads/2022/07/SchoolCake4-2.jpg",
+    imageUrl: null,
     quantity: "high",
   },
   {
@@ -43,14 +42,13 @@ const items: Item[] = [
     name: "TWG French Earl Grey",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    imageUrl:
-      "https://thewellnesstea.co.uk/cdn/shop/products/FrenchEarlGreyTCTWG3005.jpg?v=1756233999",
+    imageUrl: null,
     quantity: "medium",
   },
 ];
 
 const manifest: Manifest | undefined = await Deno.readTextFile(
-  "dist/.vite/manifest.json"
+  "public/.vite/manifest.json"
 )
   .then(JSON.parse)
   .catch(() => undefined);
@@ -75,16 +73,6 @@ if (manifest) {
   }
 }
 
-app.use(
-  "/assets/*",
-  serveStatic({
-    root: "./dist",
-    onNotFound: (path, c) => {
-      console.log(`${path} is not found, you access ${c.req.path}`);
-    },
-  })
-);
-
 app.get("/", (ctx) => {
   return ctx.html(
     nunjucks.render("home.html", {
@@ -100,6 +88,20 @@ app.get("/", (ctx) => {
     }
   );
 });
+
+app.use("/assets/.vite/*", (ctx) => {
+  return Promise.resolve(ctx.notFound());
+});
+
+app.use(
+  "/*",
+  serveStatic({
+    root: "./public",
+    onNotFound: (path, c) => {
+      console.log(`${path} is not found, you access ${c.req.path}`);
+    },
+  })
+);
 
 function port() {
   const portEnv = Number(Deno.env.get("PORT"));

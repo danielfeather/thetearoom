@@ -1,0 +1,27 @@
+entryPoints:
+  web:
+    address: :80
+  websecure:
+    address: :443
+
+api:
+  insecure: true
+
+log:
+  level: INFO
+
+providers:
+  file:
+    directory: /etc/traefik/dynamic
+  docker: 
+    exposedbydefault: false
+
+metrics:
+  otlp: 
+    http:
+      endpoint: http://otel:4318
+  
+tracing:
+  otlp:
+    http:
+      endpoint: http://otel:4318

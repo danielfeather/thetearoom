@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 
 export default defineConfig({
+  publicDir: false,
   server: {
     cors: {
       // the origin you will be accessing via browser
@@ -11,6 +12,7 @@ export default defineConfig({
     // generate .vite/manifest.json in outDir
     manifest: true,
     emptyOutDir: true,
+    outDir: "public",
     rollupOptions: {
       // overwrite default .html entry
       input: "client/main.ts",
