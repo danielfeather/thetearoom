@@ -47,6 +47,12 @@ jobs:
       steps:
         - uses: azure/setup-kubectl@v4
 
+        - name: Save ca
+          env:
+            CA_CERT: ${{ secrets.K8S_CERTIFICATE_AUTHORITY }}
+          run: |
+            echo $CA_CERT | base64 --decode > ca_cert.crt
+
         - name: Get OIDC token from GitHub
           id: get_token
           run: |
@@ -63,7 +69,6 @@ jobs:
           run: |
             ls
             kubectl config set-cluster default --server=${{ secrets.K8S_SERVER_URL }} --certificate-authority=./ca_cert.crt
-            kubectl config set-credentials default --client-certificate=./client.crt --client-key=./client.key
             kubectl config set-context default --namespace=default --user=default --cluster=default
             kubectl config use-context default
 
