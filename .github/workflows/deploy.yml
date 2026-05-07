@@ -73,5 +73,5 @@ jobs:
             kubectl config use-context default
 
         - name: Restart Deployment
-          run: kubectl rollout restart deployment/thetearoom -n thetearoom --token ${{ steps.get_token.outputs.token }}
+          run: kubectl rollout restart deployment/thetearoom -n thetearoom --token="${{ steps.get_token.outputs.token }}"
             
