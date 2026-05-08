@@ -69,13 +69,14 @@ jobs:
           run: |
             ls
             kubectl config set-cluster default --server=${{ secrets.K8S_SERVER_URL }} --certificate-authority=./ca_cert.crt
+            kubectl config set-credentials default --token="${{ steps.get_token.outputs.token }}"
             kubectl config set-context default --namespace=default --user=default --cluster=default
             kubectl config use-context default
         
         - name: Test authentication with kubectl
           run: |
             echo "Testing kubectl auth..."
-            kubectl auth whoami --token="${{ steps.get_token.outputs.token }}" || echo "Auth failed"
+            kubectl auth whoami || echo "Auth failed"
 
         - name: Restart Deployment
           run: kubectl rollout restart deployment/thetearoom -n thetearoom --token="${{ steps.get_token.outputs.token }}"
