@@ -63,12 +63,7 @@ jobs:
         - name: Debug JWT token claims
           run: |
             echo "Decoding JWT token for debugging..."
-            echo "${{ steps.get_token.outputs.token }}" | cut -d'.' -f2 | base64 -d 2>/dev/null | jq . || echo "Failed to decode JWT payload"
-          
-        - name: Test authentication with kubectl
-          run: |
-            echo "Testing kubectl auth..."
-            kubectl auth whoami --token="${{ steps.get_token.outputs.token }}" || echo "Auth failed"
+            echo "${{ steps.get_token.outputs.token }}" | cut -d'.' -f2 | base64 -d 2>/dev/null | jq . || echo "Failed to decode JWT payload"        
 
         - name: Setup config
           run: |
@@ -76,6 +71,11 @@ jobs:
             kubectl config set-cluster default --server=${{ secrets.K8S_SERVER_URL }} --certificate-authority=./ca_cert.crt
             kubectl config set-context default --namespace=default --user=default --cluster=default
             kubectl config use-context default
+        
+        - name: Test authentication with kubectl
+          run: |
+            echo "Testing kubectl auth..."
+            kubectl auth whoami --token="${{ steps.get_token.outputs.token }}" || echo "Auth failed"
 
         - name: Restart Deployment
           run: kubectl rollout restart deployment/thetearoom -n thetearoom --token="${{ steps.get_token.outputs.token }}"
