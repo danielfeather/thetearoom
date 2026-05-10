@@ -2,7 +2,7 @@ FROM denoland/deno:2.5.6
 
 WORKDIR /app
 
-COPY deno.json .
+COPY deno.json deno.lock ./
 
 RUN deno install --vendor
 
